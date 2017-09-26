@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 var { languages, CompletionItem, CompletionItemKind, Range } = require('vscode');
 const gemoji = require('gemoji');
+const twemoji = require('twemoji');
 
 function registerProvider(context) {
   const disposable = languages.registerCompletionItemProvider(
@@ -49,6 +50,10 @@ function activate(context) {
   return {
     extendMarkdownIt(md) {
       md.use(require('markdown-it-emoji'));
+      md.renderer.rules.emoji = function(token, idx) {
+        return twemoji.parse(token[idx].content);
+      };
+
       md.use(require('markdown-it-task-checkbox'));
 
       const highlight = md.options.highlight;

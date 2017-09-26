@@ -7,3 +7,7 @@
 .vscode-body .task-list-item {
   list-style: none;
 }
+
+.vscode-body .emoji {
+  height: 1em;
+}
