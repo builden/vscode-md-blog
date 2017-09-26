@@ -1,10 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 var { languages, CompletionItem, CompletionItemKind, Range } = require('vscode');
-const gemoji = require('gemoji');
 const twemoji = require('twemoji');
+const EmojiProvider = require('./EmojiProvider');
 
 function registerProvider(context) {
+  const emojiProvider = new EmojiProvider();
   const disposable = languages.registerCompletionItemProvider(
     'markdown',
     {
@@ -24,9 +25,9 @@ function registerProvider(context) {
           position.translate(0, -(preMatch[1] || preMatch[3]).length),
           postMatch ? position.translate(0, postMatch[0].length) : position
         );
-        return Object.keys(gemoji.name).map(key => {
-          const item = new CompletionItem(`:${gemoji.name[key].name}:`, CompletionItemKind.Text);
-          item.detail = gemoji.name[key].emoji;
+        return Array.from(emojiProvider.emojis).map(x => {
+          const item = new CompletionItem(`:${x.name}:`, CompletionItemKind.Text);
+          item.detail = x.emoji;
           item.range = replacementSpan;
           return item;
         });
@@ -44,7 +45,6 @@ function activate(context) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   console.log('Congratulations, your extension "vscode-md-blog" is now active!');
-
   registerProvider(context);
 
   return {
