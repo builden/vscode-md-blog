@@ -9,13 +9,10 @@
   },
   "categories": ["Other"],
   "activationEvents": [],
-  "main": "./extension",
+  "main": "./src/extension",
   "contributes": {
-    "markdown.previewStyles": ["./gfw-markdown.css", "./mermaid-markdown.css"],
-    "markdown.previewScripts": [
-      "./node_modules/mermaid/dist/mermaid.min.js",
-      "./mermaid-init.js"
-    ],
+    "markdown.previewStyles": ["./src/gfw-markdown.css", "./src/mermaid-markdown.css"],
+    "markdown.previewScripts": ["./node_modules/mermaid/dist/mermaid.min.js", "./src/mermaid-init.js"],
     "markdown.markdownItPlugins": true
   },
   "scripts": {
