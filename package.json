@@ -8,12 +8,26 @@
     "vscode": "^1.16.0"
   },
   "categories": ["Other"],
-  "activationEvents": [],
+  "activationEvents": ["onCommand:extension.pasteImage"],
   "main": "./src/extension",
   "contributes": {
     "markdown.previewStyles": ["./src/gfw-markdown.css", "./src/mermaid-markdown.css"],
     "markdown.previewScripts": ["./node_modules/mermaid/dist/mermaid.min.js", "./src/mermaid-init.js"],
-    "markdown.markdownItPlugins": true
+    "markdown.markdownItPlugins": true,
+    "commands": [
+      {
+        "command": "extension.pasteImage",
+        "title": "Paste Image"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.pasteImage",
+        "key": "ctrl+alt+v",
+        "mac": "cmd+alt+v",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
